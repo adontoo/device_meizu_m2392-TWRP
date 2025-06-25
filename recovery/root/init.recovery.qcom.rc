@@ -25,10 +25,9 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-on init
-    start vendor.boot-qti
-    start gatekeeper-1-0
+on init    
     setprop prepdecrypt.setpatch true
+    start vendor.boot-qti
 
 on early-fs
     write /proc/sys/walt/sched_lib_name "recovery,magiskboot,Updater,updater,update_engine_sideload"
@@ -61,15 +60,14 @@ on property:twrp.modules.loaded=true
     wait /sys/kernel/boot_adsp/ssr
     write /sys/kernel/boot_adsp/ssr 1
     wait /sys/class/power_supply/battery
+    write /sys/devices/platform/goodix_ts.0/irq_info 1
+    write /sys/devices/platform/goodix_ts.0/esd_info 1
     start health-hal-2-1
-    start vendor.qti.vibrator
     umount /firmware
 
 on property:ro.crypto.state=encrypted && property:ro.boot.dynamic_partitions=true
     start prepdecrypt.vendor
 
 on property:hwservicemanager.ready=true
-    start vendor.qseecomd
-
-on property:vendor.sys.listeners.registered=true
-    start vendor.keymint-qti
+    setprop sys.boot_completed 1
+    start vendor.qti.vibrator
