@@ -27,7 +27,6 @@
 
 on init
     start vendor.boot-qti
-    setprop prepdecrypt.setpatch true
 
 on early-fs
     write /proc/sys/walt/sched_lib_name "recovery,magiskboot,Updater,updater,update_engine_sideload"
@@ -64,10 +63,9 @@ on property:twrp.modules.loaded=true
     write /sys/devices/platform/goodix_ts.0/esd_info 1
     start vendor.health-default
     start vendor.qti.vibrator
-    umount /firmware
-
-on property:ro.crypto.state=encrypted && property:ro.boot.dynamic_partitions=true
-    start prepdecrypt.vendor
+    umount /vendor
+    symlink /firmware /vendor/firmware_mnt
+    start override-spl
 
 on property:servicemanager.ready=true
     setprop sys.boot_completed 1

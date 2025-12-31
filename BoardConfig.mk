@@ -142,6 +142,7 @@ TW_INCLUDE_REPACKTOOLS := true
 TW_INCLUDE_RESETPROP := true
 TW_INCLUDE_LIBRESETPROP := true
 TW_ENABLE_ALL_PARTITION_TOOLS := true
+TW_INCLUDE_ZSTD := true
 
 # F2FS
 TW_ENABLE_FS_COMPRESSION := true
@@ -192,3 +193,4 @@ TW_LOAD_VENDOR_MODULES_EXCLUDE_GKI := true
 TW_CUSTOM_CPU_TEMP_PATH := "/sys/class/thermal/thermal_zone47/temp"
 TW_BACKUP_EXCLUSIONS := /data/fonts,/data/adb/ap,/data/adb/ksu
 TW_DEVICE_VERSION := Meizu_20Inf
+TW_NO_NETWORK := true
